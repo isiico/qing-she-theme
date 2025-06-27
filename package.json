@@ -1,0 +1,21 @@
+{
+  "name": "greensnaketheme",
+  "displayName": "GreenSnakeTheme",
+  "description": "Inspired by the theme of the movie \"Green Snake\"",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Green Snake Theme",
+        "uiTheme": "vs-dark",
+        "path": "./themes/Green Snake Theme-color-theme.json"
+      }
+    ]
+  }
+}
