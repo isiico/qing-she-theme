@@ -5,13 +5,13 @@
     // ~1 means 最明显的首先拿来定配色的部分
     // ~404 试过没发现效果的
     "focusBorder": "#699543",
-    "foreground": "#f6faf2",
+    "foreground": "#a6c1e4",
     "widget.shadow": "#2c2c2c8f",
     "widget.border": "#29416F",
     "selection.background": "#699543c2",
     "descriptionForeground": "#8b8b8bce",
     "errorForeground": "#D48D9D",
-    "icon.foreground": "#d4d4d4",
+    "icon.foreground": "#a6c1e4",
     "sash.hoverBorder": "#C7504D", // ~404
     // "window.activeBorder": "#ff0000",
     // "window.inactiveBorder": "#ff0000",
@@ -76,8 +76,8 @@
     "list.filterMatchBackground": "#C5A9D5",
     //"list.filterMatchBorder": "#ff0000",
     "list.deemphasizedForeground": "#ff0000",
-    "list.activeSelectionIconForeground": "#ffffffb9",
-    "list.inactiveSelectionIconForeground": "#ffffffb9",
+    "list.activeSelectionIconForeground": "#a6c1e4",
+    "list.inactiveSelectionIconForeground": "#a6c1e4",
     "tree.inactiveIndentGuidesStroke": "#b9b9b927",
     "tree.indentGuidesStroke": "#a18f2746",
     "tree.tableColumnsBorder": "#ffffff52",
@@ -93,18 +93,16 @@
     // 侧边栏：就是编辑器竖向布局里除了活动栏跟文本编辑区域外的布局
     "sideBar.background": "#eaedf1", // ~1
     "sideBar.foreground": "#66849C", // ~1
-    // "sideBar.background": "#29416F", // ~1
-    // "sideBar.foreground": "#FCFDF8", // ~1
     "sideBar.dropBackground": "#3480bf33",
     "sideBarTitle.foreground": "#00000067", // ~1
     "sideBarSectionHeader.background": "#1D2C4C", // ~1
     "sideBarSectionHeader.foreground": "#ffffffe5", // ~1
     "minimap.background": "#27365a",
     "minimap.errorHighlight": "#C7504D",
-    "minimap.findMatchHighlight": "#E0D1AA",
+    "minimap.findMatchHighlight": "#E0D1AA", // 匹配的搜索结果高亮背景色
     "minimap.foregroundOpacity": "#00000046",
     "minimap.selectionHighlight": "#3480bf59",
-    "minimap.selectionOccurrenceHighlight": "#F2DDA8",
+    "minimap.selectionOccurrenceHighlight": "#05d1868c", // mini视图选中的背景色
     "minimap.warningHighlight": "#c99d6e", // ~404
     "minimapGutter.addedBackground": "#17c984",
     "minimapGutter.deletedBackground": "#9dff00",
@@ -129,11 +127,11 @@
     "editor.foreground": "#faf2f2", // ~1
     "editorLineNumber.foreground": "#cee0be9f",
     "editorLineNumber.activeForeground": "#eeeeee",
-    "editor.selectionBackground": "#3480bfa2",
+    "editor.selectionBackground": "#3480bf",
     // "editor.selectionHighlightBackground": "#ec605171",
-    "editor.wordHighlightBackground": "#aa9d7d88",
-    // "editor.wordHighlightStrongBackground": "#ec605171",
-    //"editor.findMatchBackground": "#f2dda8d2",
+    "editor.wordHighlightBackground": "#05d1868c",//当前点击选中的背景色
+    "editor.wordHighlightStrongBackground": "#ec605171",
+    "editor.findMatchBackground": "#f2dda8d2",// 搜索结果当前的背景色
     "editor.findMatchHighlightBackground": "#ecc0798c",
     // "editor.findRangeHighlightBackground": "#ec60511c",
     "editor.lineHighlightBackground": "#ffffff22",
