@@ -101,7 +101,7 @@
     "minimap.errorHighlight": "#C7504D",
     "minimap.findMatchHighlight": "#E0D1AA", // 匹配的搜索结果高亮背景色
     "minimap.foregroundOpacity": "#00000046",
-    "minimap.selectionHighlight": "#3480bf59",
+    "minimap.selectionHighlight": "#3480bfd5",
     "minimap.selectionOccurrenceHighlight": "#05d1868c", // mini视图选中的背景色
     "minimap.warningHighlight": "#c99d6e", // ~404
     "minimapGutter.addedBackground": "#17c984",
@@ -127,10 +127,10 @@
     "editor.foreground": "#faf2f2", // ~1
     "editorLineNumber.foreground": "#cee0be9f",
     "editorLineNumber.activeForeground": "#eeeeee",
-    "editor.selectionBackground": "#3480bf",
-    // "editor.selectionHighlightBackground": "#ec605171",
-    "editor.wordHighlightBackground": "#05d1868c",//当前点击选中的背景色
-    "editor.wordHighlightStrongBackground": "#ec605171",
+    "editor.selectionBackground": "#0262b08a",//当前点击选中的背景色（拖动鼠标选中）
+    "editor.selectionHighlightBackground": "#098f8b56",//匹配当前点击选中的背景色(模糊匹配，大小写不敏感等)
+    "editor.wordHighlightBackground": "#098f8b7e",//匹配当前点击选中的背景色(完全匹配)
+    // "editor.wordHighlightStrongBackground": "#ffffff",
     "editor.findMatchBackground": "#f2dda8d2",// 搜索结果当前的背景色
     "editor.findMatchHighlightBackground": "#ecc0798c",
     // "editor.findRangeHighlightBackground": "#ec60511c",
