@@ -8,27 +8,31 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1. 检出代码（获取完整提交历史）
+      # 1. 检出代码
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 必须获取全部提交历史，否则changesets无法计算版本
+          fetch-depth: 0
 
-      # 2. 设置Node.js环境（根据项目需求调整版本）
-      # 使用官方 Action 安装 Node.js 和 pnpm
-      - name: Setup Node.js & pnpm
+      # 2. 安装 Node.js 20.x
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20  # 指定 Node.js 版本
+
+      # 3. 安装指定版本 pnpm
+      - name: Install pnpm
         uses: pnpm/action-setup@v2.4.0
         with:
           version: 8  # 指定 pnpm 版本
-          node-version: 20  # 指定 Node.js 版本
 
-      # 3. 安装依赖（包括changesets）
+      # 4. 安装依赖
       - name: Install dependencies
         run: pnpm install
 
-      # 4. 发布到VSCode Marketplace（使用vsce）
+      # 5. 发布到 Marketplace
       - name: Publish to VSCode Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
         with:
-          pat: ${{ secrets.VSCE_PAT }}  # 从GitHub Secrets获取vsce Personal Access Token
-          registryUrl: https://marketplace.visualstudio.com/items?itemName=isiico.greensnaketheme  # 插件Marketplace地址
+          pat: ${{ secrets.VSCE_PAT }}
+          registryUrl: https://marketplace.visualstudio.com/items?itemName=isiico.greensnaketheme
