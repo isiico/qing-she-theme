@@ -20,22 +20,16 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'  # 缓存pnpm依赖
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Install dependencies
+        run: pnpm install
 
       # 3. 安装依赖（包括changesets）
       - name: Install dependencies
         run: pnpm install
 
-      # 4. 生成CHANGELOG和更新版本号（根据提交信息）
-      - name: Create changeset
-        run: pnpm exec changeset  # 交互式选择提交类型（本地测试时使用）
-        # 自动模式（CI环境中推荐，无需手动选择）：
-        # run: pnpm exec changeset --auto
-
-      # 5. 更新package.json版本号并生成CHANGELOG
-      - name: Version packages
-        run: pnpm exec changeset version
-
-      # 6. 发布到VSCode Marketplace（使用vsce）
+      # 4. 发布到VSCode Marketplace（使用vsce）
       - name: Publish to VSCode Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
         with:
