@@ -1,0 +1,43 @@
+name: VSCode Plugin CI/CD
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 检出代码（获取完整提交历史）
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 必须获取全部提交历史，否则changesets无法计算版本
+
+      # 2. 设置Node.js环境（根据项目需求调整版本）
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'  # 缓存pnpm依赖
+
+      # 3. 安装依赖（包括changesets）
+      - name: Install dependencies
+        run: pnpm install
+
+      # 4. 生成CHANGELOG和更新版本号（根据提交信息）
+      - name: Create changeset
+        run: pnpm exec changeset  # 交互式选择提交类型（本地测试时使用）
+        # 自动模式（CI环境中推荐，无需手动选择）：
+        # run: pnpm exec changeset --auto
+
+      # 5. 更新package.json版本号并生成CHANGELOG
+      - name: Version packages
+        run: pnpm exec changeset version
+
+      # 6. 发布到VSCode Marketplace（使用vsce）
+      - name: Publish to VSCode Marketplace
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+          pat: ${{ secrets.VSCE_PAT }}  # 从GitHub Secrets获取vsce Personal Access Token
+          registryUrl: https://marketplace.visualstudio.com/items?itemName=isiico.greensnaketheme  # 插件Marketplace地址
