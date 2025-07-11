@@ -1,6 +1,0 @@
-# 强制所有文件使用 LF
-* text=auto eol=lf
-
-# 排除特定文件类型（按需调整）
-*.png binary
-*.jpg binary

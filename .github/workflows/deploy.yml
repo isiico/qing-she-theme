@@ -8,33 +8,27 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      # 1. 检出代码
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      # 1. 配置国内镜像源
-      - name: Set npm registry
-        run: npm config set registry https://registry.npmmirror.com
 
       # 2. 安装 Node.js 20.x
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'  # 启用 pnpm 缓存
 
-      # 3. 安装指定版本 pnpm
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 8
-
-      # 4. 修复锁文件路径
-      - name: Ensure lock file
+      # 3. 启用 corepack 并准备 pnpm
+      - name: Enable corepack and install pnpm
         run: |
-          touch pnpm-lock.yaml  # 创建空锁文件（临时方案）
-          pnpm install --prefer-offline --no-frozen-lockfile
+          corepack enable
+          corepack prepare pnpm@8 --activate
+
+      # 4. 安装依赖
+      - name: Install dependencies
+        run: pnpm install
 
       # 5. 发布到 Marketplace
       - name: Publish to VSCode Marketplace
