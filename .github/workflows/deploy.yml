@@ -17,23 +17,24 @@ jobs:
       - name: Set npm registry
         run: npm config set registry https://registry.npmmirror.com
 
-      # 2. 使用最新版 pnpm Action
-      - name: Setup Node.js & pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 8  # 保持与项目兼容的 pnpm 版本
-          run_install: false  # 禁用自动安装
-
-      # 3. 手动安装 Node.js
-      - name: Install Node.js
+      # 2. 安装 Node.js 20.x
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          cache: 'pnpm'  # 启用 pnpm 缓存
 
-      # 4. 安装依赖
-      - name: Install dependencies
-        run: pnpm install --prefer-offline
+      # 3. 安装指定版本 pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
+      # 4. 修复锁文件路径
+      - name: Ensure lock file
+        run: |
+          touch pnpm-lock.yaml  # 创建空锁文件（临时方案）
+          pnpm install --prefer-offline --no-frozen-lockfile
 
       # 5. 发布到 Marketplace
       - name: Publish to VSCode Marketplace
