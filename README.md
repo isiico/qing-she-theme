@@ -101,15 +101,15 @@
 </table>
 
 ## 实际效果
-![demo](https://gitee.com/tomato-gitee/qing-she-theme/raw/master/images/demo.png)
+![demo](https://raw.githubusercontent.com/isiico/qing-she-theme/refs/heads/master/images/demo.png)
 
 ## 灵感来源（美图暴击）
-![青蛇白蛇绝美荷花池](https://gitee.com/tomato-gitee/qing-she-theme/raw/master/images/InspirationSource1.jpg)
-![青蛇白蛇荷花池电影感](https://gitee.com/tomato-gitee/qing-she-theme/raw/master/images/InspirationSource2.jpg)
-![青蛇白蛇游船](https://gitee.com/tomato-gitee/qing-she-theme/raw/master/images/InspirationSource3.jpg)
-![青蛇撑伞](https://gitee.com/tomato-gitee/qing-she-theme/raw/master/images/InspirationSource4.jpg)
-![白蛇](https://gitee.com/tomato-gitee/qing-she-theme/raw/master/images/InspirationSource5.jpg)
-![深蓝背景青蛇](https://gitee.com/tomato-gitee/qing-she-theme/raw/master/images/InspirationSource6.jpg)
-![深蓝背景白蛇](https://gitee.com/tomato-gitee/qing-she-theme/raw/master/images/InspirationSource7.jpg)
-![电影手绘海报](https://gitee.com/tomato-gitee/qing-she-theme/raw/master/images/InspirationSource8.jpg)
+![青蛇白蛇绝美荷花池](https://raw.githubusercontent.com/isiico/qing-she-theme/refs/heads/master/images/InspirationSource1.jpg)
+![青蛇白蛇荷花池电影感](https://raw.githubusercontent.com/isiico/qing-she-theme/refs/heads/master/images/InspirationSource2.jpg)
+![青蛇白蛇游船](https://raw.githubusercontent.com/isiico/qing-she-theme/refs/heads/master/images/InspirationSource3.jpg)
+![青蛇撑伞](https://raw.githubusercontent.com/isiico/qing-she-theme/refs/heads/master/images/InspirationSource4.jpg)
+![白蛇](https://raw.githubusercontent.com/isiico/qing-she-theme/refs/heads/master/images/InspirationSource5.jpg)
+![深蓝背景青蛇](https://raw.githubusercontent.com/isiico/qing-she-theme/refs/heads/master/images/InspirationSource6.jpg)
+![深蓝背景白蛇](https://raw.githubusercontent.com/isiico/qing-she-theme/refs/heads/master/images/InspirationSource7.jpg)
+![电影手绘海报](https://raw.githubusercontent.com/isiico/qing-she-theme/refs/heads/master/images/InspirationSource8.jpg)
 灵感来源图片都是互联网找的，如果侵权需要我删除修改等可以联系我。
