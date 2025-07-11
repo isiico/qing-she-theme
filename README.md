@@ -29,6 +29,9 @@
 
 **敲代码是愉快的事，<a>愿你在这属于东方的美中敲出属于自己的精彩。</a>**
 
+## 实际效果
+![demo](https://raw.githubusercontent.com/isiico/qing-she-theme/refs/heads/master/images/demo.png)
+
 ## 三步召唤青蛇主题（附施法口诀）
 
 ### ​Step1️⃣ 打开次元裂缝​​
@@ -99,9 +102,6 @@
         </tr>
     </tbody>
 </table>
-
-## 实际效果
-![demo](https://raw.githubusercontent.com/isiico/qing-she-theme/refs/heads/master/images/demo.png)
 
 ## 灵感来源（美图暴击）
 ![青蛇白蛇绝美荷花池](https://raw.githubusercontent.com/isiico/qing-she-theme/refs/heads/master/images/InspirationSource1.jpg)
