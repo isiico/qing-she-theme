@@ -35,4 +35,3 @@ jobs:
         uses: HaaLeo/publish-vscode-extension@v1
         with:
           pat: ${{ secrets.VSCE_PAT }}
-          registryUrl: https://marketplace.visualstudio.com/items?itemName=isiico.greensnaketheme
