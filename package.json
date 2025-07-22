@@ -3,7 +3,7 @@
   "name": "greensnaketheme",
   "displayName": "《青蛇》主题|Green Snake Theme",
   "description": "一场东方美学的代码奇遇|The Aesthetic Code Quest: When East Meets Binary​",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "engines": {
     "vscode": "^1.76.0"
   },
@@ -12,7 +12,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/tomato-gitee/qing-she-theme.git"
+    "url": "https://github.com/isiico/qing-she-theme.git",
+    "giteeUrl": "https://gitee.com/tomato-gitee/qing-she-theme.git"
   },
   "icon": "images/logo3.png",
   "contributes": {
