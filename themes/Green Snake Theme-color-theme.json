@@ -36,8 +36,8 @@
     "dropdown.border": "#3480BF",
     "input.background": "#1D2C4C",
     "input.foreground": "#f2f4fa",
-    "input.placeholderForeground": "#ffffff7e",
-    "inputOption.activeBorder": "#2B5CB6",
+    "input.placeholderForeground": "#3a5795", // 输入框占位符颜色
+    "inputOption.activeBorder": "#4880e7",
     "inputOption.activeBackground": "#2B5CB6",
     "inputValidation.errorBackground": "#A84932", // ~404
     "inputValidation.errorBorder": "#A84932", // ~404
@@ -49,15 +49,15 @@
     "scrollbarSlider.activeBackground": "#798b53fa",
     "scrollbarSlider.hoverBackground": "#798b53c0",
     "scrollbar.shadow": "#00000088",
-    "badge.background": "#CE6A88",
-    "badge.foreground": "#f8f2f4",
+    "badge.background": "#CE6A88", // 侧边栏的数字标背景
+    "badge.foreground": "#f2f4fa", // 侧边栏的数字标文字
     "progressBar.background": "#3d99e4",
     "list.activeSelectionBackground": "#BCA734", // 影响下拉hover背景色
     "list.focusAndSelectionOutline": "#BCA734",
-    "list.activeSelectionForeground": "#f2f4fa",
+    "list.activeSelectionForeground": "#f2f4fa", //  侧边栏里选中的文字颜色
     "list.dropBackground": "#0282be25",
-    // "list.focusBackground": "#D0587C",
-    // "list.focusForeground": "#f2f4fa",
+    "list.focusBackground": "#D0587C",
+    "list.focusForeground": "#f2f4fa",
     "list.focusHighlightForeground": "#92ffbe", // 代码提示的下拉匹配并选中的颜色
     "list.focusOutline": "#BCA734",
     "list.highlightForeground": "#5bec95", // 代码提示的下拉匹配的颜色
@@ -84,7 +84,7 @@
     "tree.tableOddRowsBackground": "#0f93eb57",
     "settings.dropdownListBorder": "#ff0000", // ~404
     "activityBar.background": "#1D2C4C", // ~1
-    "activityBar.foreground": "#ffffffdc", // ~1
+    "activityBar.foreground": "#ffffffdc", // ~1  活动栏的文字颜色
     "activityBar.activeBorder": "#699543",
     "activityBar.inactiveForeground": "#6a6d7c", // ~1
     "activityBarBadge.background": "#CE6A88", // ~1
@@ -92,11 +92,11 @@
     "profileBadge.foreground": "#ff0000", // ~404
     // 侧边栏：就是编辑器竖向布局里除了活动栏跟文本编辑区域外的布局
     "sideBar.background": "#eaedf1", // ~1
-    "sideBar.foreground": "#66849C", // ~1
+    "sideBar.foreground": "#66849C", // ~1 侧边栏的文字颜色
     "sideBar.dropBackground": "#3480bf33",
     "sideBarTitle.foreground": "#00000067", // ~1
     "sideBarSectionHeader.background": "#1D2C4C", // ~1
-    "sideBarSectionHeader.foreground": "#ffffffe5", // ~1
+    "sideBarSectionHeader.foreground": "#ffffffe5", // ~1 侧边栏的标题文字
     "minimap.background": "#27365a",
     "minimap.errorHighlight": "#C7504D",
     "minimap.findMatchHighlight": "#E0D1AA", // 匹配的搜索结果高亮背景色
@@ -117,21 +117,21 @@
     "tab.border": "#2B5CB6", // ~1
     "tab.inactiveBackground": "#2B5CB6", // ~1
     "editorGroupHeader.tabsBackground": "#2B5CB6", // ~1
-    "tab.inactiveForeground": "#ffffff91", // ~1
+    "tab.inactiveForeground": "#ffffffd2", // ~1 顶部tab未选中的文字颜色
     "tab.unfocusedActiveForeground": "#ffffffd2", // ~1
     "tab.unfocusedInactiveForeground": "#ffffff75", // ~1
     "tab.hoverForeground": "#ffffff",
     //"tab.activeBorderTop": "#699543",
     //"tab.hoverBackground": "#f6faf2",
     "editor.background": "#1D2C4C", // ~1
-    "editor.foreground": "#faf2f2", // ~1
+    "editor.foreground": "#66849C", // ~1  需要变成深色（否则chat看不清），在token里做颜色修复
     "editorLineNumber.foreground": "#cee0be9f",
     "editorLineNumber.activeForeground": "#eeeeee",
-    "editor.selectionBackground": "#0262b08a",//当前点击选中的背景色（拖动鼠标选中）
-    "editor.selectionHighlightBackground": "#098f8b56",//匹配当前点击选中的背景色(模糊匹配，大小写不敏感等)
-    "editor.wordHighlightBackground": "#098f8b7e",//匹配当前点击选中的背景色(完全匹配)
+    "editor.selectionBackground": "#0262b08a", //当前点击选中的背景色（拖动鼠标选中）
+    "editor.selectionHighlightBackground": "#098f8b56", //匹配当前点击选中的背景色(模糊匹配，大小写不敏感等)
+    "editor.wordHighlightBackground": "#098f8b7e", //匹配当前点击选中的背景色(完全匹配)
     // "editor.wordHighlightStrongBackground": "#ffffff",
-    "editor.findMatchBackground": "#f2dda8d2",// 搜索结果当前的背景色
+    "editor.findMatchBackground": "#f2dda8d2", // 搜索结果当前的背景色
     "editor.findMatchHighlightBackground": "#ecc0798c",
     // "editor.findRangeHighlightBackground": "#ec60511c",
     "editor.lineHighlightBackground": "#ffffff22",
@@ -201,90 +201,131 @@
     "editorSuggestWidget.background": "#29416F",
     "editorSuggestWidget.border": "#29416F",
   },
+  // 根据词法编译的高亮语法
   "tokenColors": [
+    // 专门针对所有“代码源文件” (source) 和 “纯文本” (text)，强制变回浅色！
+    // 这样主编辑器就恢复正常了（深底浅字）。
+    {
+      "name": "Global Light Text Override",
+      "scope": [
+        "source",   // 所有代码 (ts, js, py...)
+        "text",     // 普通文本
+        "variable", 
+        "constant",
+        "keyword"
+      ],
+      "settings": {
+        "foreground": "#a6c1e4" // 这里填原本的浅蓝色
+      }
+    }, 
+    // 再次确认 Markdown (Chat内容) 使用深色
+    // 这段要放在上面那段的【后面】，或者利用 specificity 覆盖
+    {
+      "name": "Markdown Dark for Chat",
+      "scope": [
+        "text.html.markdown",
+        "markup",
+        "meta.paragraph.markdown"
+      ],
+      "settings": {
+        "foreground": "#66849C" // 深色，适配 Chat 背景
+      }
+    },
+    // 专门针对基础标点强制设为浅色
+    {
+      "name": "Normal Punctuation",
+      "scope": [
+        // 基础标点
+        "punctuation.separator", // = : , ;
+        "punctuation.terminator", // ;
+        
+        // HTML/Vue 标签括号 < >
+        "punctuation.definition.tag", 
+        
+        // 字符串引号 " '
+        "punctuation.definition.string",
+        
+        // 对象键值对的冒号 (key: value)
+        "punctuation.separator.key-value"
+      ],
+      "settings": {
+        "foreground": "#707a84"
+      }
+    },
+    // Vue/HTML 关键指令符号 (@ : #) -> 改成【显眼】的颜色
+    {
+      "name": "Vue/Angular Directives",
+      "scope": [
+        "punctuation.attribute-shorthand.event",  // @click 里的 @
+        "punctuation.attribute-shorthand.bind",   // :src 里的 :
+        "punctuation.attribute-shorthand.slot",   // #header 里的 #
+        "entity.other.attribute-name.angular",    // Angular 的 *ngIf 里的 *
+        "punctuation.definition.keyword",         // 有些语法把 @ 算作 keyword
+        "variable.language.this"                  // this. 也可以醒目一点
+      ],
+      "settings": {
+        "foreground": "#ffffff",
+      }
+    },
     {
       "name": "New keyword, logical operator keyword",
-      "scope": [
-        "keyword.operator.new",
-        "keyword.operator.logical"
-      ],
+      "scope": ["keyword.operator.new", "keyword.operator.logical"],
       "settings": {
         "foreground": "#ba8ef7"
       }
     },
     {
       "name": "Comment",
-      "scope": [
-        "comment"
-      ],
+      "scope": ["comment"],
       "settings": {
         "foreground": "#707a84"
       }
     },
     {
       "name": "Comment Shebang",
-      "scope": [
-        "comment.line.shebang"
-      ],
+      "scope": ["comment.line.shebang"],
       "settings": {
         "foreground": "#ff8ad1"
       }
     },
     {
       "name": "Variables",
-      "scope": [
-        "variable",
-        "string constant.other.placeholder"
-      ],
+      "scope": ["variable", "string constant.other.placeholder"],
       "settings": {
         "foreground": "#939da5"
       }
     },
     {
       "name": "Invalid",
-      "scope": [
-        "invalid",
-        "invalid.illegal"
-      ],
+      "scope": ["invalid", "invalid.illegal"],
       "settings": {
         "foreground": "#ff6a80"
       }
     },
     {
       "name": "Keyword, Storage",
-      "scope": [
-        "keyword",
-        "storage.type",
-        "storage.modifier"
-      ],
+      "scope": ["keyword", "storage.type", "storage.modifier"],
       "settings": {
         "foreground": "#ba8ef7"
       }
     },
     {
       "name": "Operators",
-      "scope": [
-        "keyword.operator"
-      ],
+      "scope": ["keyword.operator"],
       "settings": {
         "foreground": "#939da5"
       }
     },
     {
       "name": "Operator, Misc",
-      "scope": [
-        "keyword.control"
-      ],
+      "scope": ["keyword.control"],
       "settings": {
         "foreground": "#939da5" // import，from的
       }
     },
     {
       "name": "Constant",
-      "scope": [
-        "constant.language",
-        "variable.other.property"
-      ],
+      "scope": ["constant.language", "variable.other.property"],
       "settings": {
         "foreground": "#ffa763"
       }
@@ -315,9 +356,7 @@
     },
     {
       "name": "Builtin function",
-      "scope": [
-        "support.function.builtin"
-      ],
+      "scope": ["support.function.builtin"],
       "settings": {
         "foreground": "#89ddff"
       }
@@ -335,9 +374,7 @@
     },
     {
       "name": "Component Tag",
-      "scope": [
-        "support.class.component"
-      ],
+      "scope": ["support.class.component"],
       "settings": {
         "foreground": "#ba8ef7"
       }
@@ -357,38 +394,28 @@
     },
     {
       "name": "Function, Special Method",
-      "scope": [
-        "punctuation.definition.arguments",
-        "meta.function-call"
-      ],
+      "scope": ["punctuation.definition.arguments", "meta.function-call"],
       "settings": {
         "foreground": "#939da5"
       }
     },
     {
       "name": "punctuation.accessor.js",
-      "scope": [
-        "punctuation.accessor.js",
-        "punctuation.parenthesis"
-      ],
+      "scope": ["punctuation.accessor.js", "punctuation.parenthesis"],
       "settings": {
         "foreground": "#939da5"
       }
     },
     {
       "name": "Block Level Variables",
-      "scope": [
-        "variable.other"
-      ],
+      "scope": ["variable.other"],
       "settings": {
         "foreground": "#939da5"
       }
     },
     {
       "name": "Number",
-      "scope": [
-        "constant.numeric"
-      ],
+      "scope": ["constant.numeric"],
       "settings": {
         "foreground": "#89ddff"
       }
@@ -409,9 +436,7 @@
     },
     {
       "name": "Variable parameter",
-      "scope": [
-        "support.variable.property"
-      ],
+      "scope": ["support.variable.property"],
       "settings": {
         "foreground": "#ffa763"
       }
@@ -430,18 +455,14 @@
     },
     {
       "name": "Entity name",
-      "scope": [
-        "meta.return.type"
-      ],
+      "scope": ["meta.return.type"],
       "settings": {
         "foreground": "#ffea6b"
       }
     },
     {
       "name": "Entity Types",
-      "scope": [
-        "support.type"
-      ],
+      "scope": ["support.type"],
       "settings": {
         "foreground": "#939da5"
       }
@@ -486,18 +507,14 @@
     },
     {
       "name": "Language methods",
-      "scope": [
-        "variable.language"
-      ],
+      "scope": ["variable.language"],
       "settings": {
         "foreground": "#939da5"
       }
     },
     {
       "name": "entity.name.method.js",
-      "scope": [
-        "entity.name.method.js"
-      ],
+      "scope": ["entity.name.method.js"],
       "settings": {
         "foreground": "#939da5"
       }
@@ -514,9 +531,7 @@
     },
     {
       "name": "function arrow",
-      "scope": [
-        "storage.type.function.arrow"
-      ],
+      "scope": ["storage.type.function.arrow"],
       "settings": {
         "foreground": "#939da5"
       }
@@ -534,9 +549,7 @@
     },
     {
       "name": "Attributes",
-      "scope": [
-        "entity.other.attribute-name"
-      ],
+      "scope": ["entity.other.attribute-name"],
       "settings": {
         "foreground": "#ffa763"
       }
@@ -553,74 +566,56 @@
     },
     {
       "name": "CSS Classes",
-      "scope": [
-        "entity.other.attribute-name.class"
-      ],
+      "scope": ["entity.other.attribute-name.class"],
       "settings": {
         "foreground": "#ffa763"
       }
     },
     {
       "name": "CSS ID's",
-      "scope": [
-        "entity.other.attribute-name.id.css"
-      ],
+      "scope": ["entity.other.attribute-name.id.css"],
       "settings": {
         "foreground": "#ff8ad1"
       }
     },
     {
       "name": "Inserted",
-      "scope": [
-        "markup.inserted"
-      ],
+      "scope": ["markup.inserted"],
       "settings": {
         "foreground": "#C3E88D"
       }
     },
     {
       "name": "Deleted",
-      "scope": [
-        "markup.deleted"
-      ],
+      "scope": ["markup.deleted"],
       "settings": {
         "foreground": "#ff6a80"
       }
     },
     {
       "name": "Changed",
-      "scope": [
-        "markup.changed"
-      ],
+      "scope": ["markup.changed"],
       "settings": {
         "foreground": "#C792EA"
       }
     },
     {
       "name": "Regular Expressions",
-      "scope": [
-        "string.regexp"
-      ],
+      "scope": ["string.regexp"],
       "settings": {
         "foreground": "#56adb7"
       }
     },
     {
       "name": "Escape Characters",
-      "scope": [
-        "constant.character.escape"
-      ],
+      "scope": ["constant.character.escape"],
       "settings": {
         "foreground": "#89ddff"
       }
     },
     {
       "name": "URL",
-      "scope": [
-        "*url*",
-        "*link*",
-        "*uri*"
-      ],
+      "scope": ["*url*", "*link*", "*uri*"],
       "settings": {
         "fontStyle": "underline"
       }
@@ -676,10 +671,7 @@
     },
     {
       "name": "Markup - Bold",
-      "scope": [
-        "markup.bold",
-        "markup.bold string"
-      ],
+      "scope": ["markup.bold", "markup.bold string"],
       "settings": {
         "fontStyle": "bold",
         "foreground": "#ba8ef7"
@@ -702,9 +694,7 @@
     },
     {
       "name": "Markup - Underline",
-      "scope": [
-        "markup.underline"
-      ],
+      "scope": ["markup.underline"],
       "settings": {
         "fontStyle": "underline",
         "foreground": "#939da5"
@@ -712,63 +702,49 @@
     },
     {
       "name": "Markdown - Blockquote",
-      "scope": [
-        "markup.quote punctuation.definition.blockquote.markdown"
-      ],
+      "scope": ["markup.quote punctuation.definition.blockquote.markdown"],
       "settings": {
         "foreground": "#939da5"
       }
     },
     {
       "name": "Markdown - Link",
-      "scope": [
-        "string.other.link.title.markdown"
-      ],
+      "scope": ["string.other.link.title.markdown"],
       "settings": {
         "foreground": "#89ddff"
       }
     },
     {
       "name": "Markdown - Link Description",
-      "scope": [
-        "string.other.link.description.title.markdown"
-      ],
+      "scope": ["string.other.link.description.title.markdown"],
       "settings": {
         "foreground": "#ba8ef7"
       }
     },
     {
       "name": "Markdown - Link Anchor",
-      "scope": [
-        "constant.other.reference.link.markdown"
-      ],
+      "scope": ["constant.other.reference.link.markdown"],
       "settings": {
         "foreground": "#ffea6b"
       }
     },
     {
       "name": "Markup - Raw Block",
-      "scope": [
-        "markup.raw.block"
-      ],
+      "scope": ["markup.raw.block"],
       "settings": {
         "foreground": "#ba8ef7"
       }
     },
     {
       "name": "Markdown - Raw Block Fenced",
-      "scope": [
-        "markup.raw.block.fenced.markdown"
-      ],
+      "scope": ["markup.raw.block.fenced.markdown"],
       "settings": {
         "foreground": "#00000050"
       }
     },
     {
       "name": "Markdown - Fenced Bode Block",
-      "scope": [
-        "punctuation.definition.fenced.markdown"
-      ],
+      "scope": ["punctuation.definition.fenced.markdown"],
       "settings": {
         "foreground": "#00000050"
       }
@@ -786,18 +762,14 @@
     },
     {
       "name": "Markdown - Fenced Language",
-      "scope": [
-        "variable.language.fenced.markdown"
-      ],
+      "scope": ["variable.language.fenced.markdown"],
       "settings": {
         "foreground": "#939da5"
       }
     },
     {
       "name": "Markdown - Separator",
-      "scope": [
-        "meta.separator"
-      ],
+      "scope": ["meta.separator"],
       "settings": {
         "fontStyle": "bold",
         "foreground": "#8796b0"
@@ -805,48 +777,43 @@
     },
     {
       "name": "Markup - Table",
-      "scope": [
-        "markup.table"
-      ],
+      "scope": ["markup.table"],
       "settings": {
         "foreground": "#939da5"
       }
     },
     {
       "name": "Entity Type Class",
-      "scope": [
-        "entity.name.type.class"
-      ],
+      "scope": ["entity.name.type.class"],
       "settings": {
         "foreground": "#ff6a80"
       }
     },
     {
       "name": "Module",
-      "scope": [
-        "support.type.object.module"
-      ],
+      "scope": ["support.type.object.module"],
       "settings": {
         "foreground": "#ba8ef7"
       }
     },
     {
       "name": "Boolean",
-      "scope": [
-        "constant.language.boolean"
-      ],
+      "scope": ["constant.language.boolean"],
       "settings": {
         "foreground": "#ba8ef7"
       }
     },
     {
       "name": "Types",
-      "scope": [
-        "entity.name.type"
-      ],
+      "scope": ["entity.name.type"],
       "settings": {
         "foreground": "#89ddff"
       }
+    },
+    {
+      "name": "Chat Text Fix",
+      "scope": [ "text.html.markdown", "source.markdown", "text" ],
+      "settings": { "foreground": "#334455" }
     }
   ]
 }
