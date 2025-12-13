@@ -15,3 +15,8 @@
     * *Fixed low contrast issues for input placeholders.*
 * 修正了 Markdown 渲染在非编辑器区域（如 Chat 面板）的颜色继承逻辑。
     * *Resolved Markdown rendering color conflicts in non-editor areas.*
+
+## [1.0.1] - 2025-12-13
+### 🔧 🐛 修复 (Fixes)
+* 修复侧边栏选中有时背景色会变成粉色的问题
+    * *Fixed sidebar selection background color issue.*

@@ -56,8 +56,8 @@
     "list.focusAndSelectionOutline": "#BCA734",
     "list.activeSelectionForeground": "#f2f4fa", //  侧边栏里选中的文字颜色
     "list.dropBackground": "#0282be25",
-    "list.focusBackground": "#D0587C",
-    "list.focusForeground": "#f2f4fa",
+    // "list.focusBackground": "#D0587C", // 设置这个会导致侧边栏里选中的文字颜色变成这个颜色
+    // "list.focusForeground": "#f2f4fa",
     "list.focusHighlightForeground": "#92ffbe", // 代码提示的下拉匹配并选中的颜色
     "list.focusOutline": "#BCA734",
     "list.highlightForeground": "#5bec95", // 代码提示的下拉匹配的颜色
