@@ -17,11 +17,11 @@
     // "window.inactiveBorder": "#ff0000",
     "textBlockQuote.background": "#29416F",
     "textBlockQuote.border": "#3480BF",
-    "textCodeBlock.background": "#392434",
-    "textLink.foreground": "#3DA083",
-    "textLink.activeForeground": "#42d1a6",
-    "textPreformat.foreground": "#66849C",
-    "textSeparator.foreground": "#ff0000", // ~404
+    "textCodeBlock.background": "#232530",
+    "textLink.foreground": "#5fb5f3",
+    "textLink.activeForeground": "#89ddff",
+    "textPreformat.foreground": "#ffea6b",
+    "textSeparator.foreground": "#707a84", // 分割线 (---)
     "toolbar.activeBackground": "#699543",
     "toolbar.hoverBackground": "#9dc57a3d",
     "toolbar.hoverOutline": "#9dc57a3d",
@@ -200,620 +200,397 @@
     "editorWidget.border": "#29416F",
     "editorSuggestWidget.background": "#29416F",
     "editorSuggestWidget.border": "#29416F",
+    "chat.slashCommandForeground": "#a6aed3", // Chat 里的斜杠命令文字颜色 (/fix, /explain)
+    "chat.slashCommandBackground": "#29416F" // Chat 命令的背景色
   },
   // 根据词法编译的高亮语法
   "tokenColors": [
-    // 专门针对所有“代码源文件” (source) 和 “纯文本” (text)，强制变回浅色！
-    // 这样主编辑器就恢复正常了（深底浅字）。
+    // ============================================
+    // 🌍 [必须放在最前] 通用语法高亮基础层
+    // 解决 Kotlin, Java, Python 等没有单独配置的语言变单色问题
+    // ============================================
+    {
+      "name": "[Universal] Keywords",
+      "scope": [
+        "source keyword",
+        "source storage.type",
+        "source storage.modifier"
+      ],
+      "settings": {
+        "foreground": "#ba8ef7"
+      }
+    },
+    {
+      "name": "[Universal] Strings",
+      "scope": ["source string", "source string.quoted"],
+      "settings": {
+        "foreground": "#5bec95"
+      }
+    },
+    {
+      "name": "[Universal] Comments",
+      "scope": ["source comment", "source punctuation.definition.comment"],
+      "settings": {
+        "foreground": "#707a84"
+      }
+    },
+    {
+      "name": "[Universal] Functions",
+      "scope": [
+        "source entity.name.function",
+        "source support.function",
+        "source meta.function-call"
+      ],
+      "settings": {
+        "foreground": "#ffea6b"
+      }
+    },
+    {
+      "name": "[Universal] Classes & Types",
+      "scope": [
+        "source entity.name.type",
+        "source support.class",
+        "source support.type",
+        "source entity.name.class"
+      ],
+      "settings": {
+        "foreground": "#5fb5f3"
+      }
+    },
+    {
+      "name": "[Universal] Numbers",
+      "scope": ["source constant.numeric"],
+      "settings": {
+        "foreground": "#89ddff"
+      }
+    },
+    {
+      "name": "[Universal] Operators",
+      "scope": [
+        "source keyword.operator",
+        "source punctuation.separator",
+        "source punctuation.terminator"
+      ],
+      "settings": {
+        "foreground": "#939da5"
+      }
+    },
+    {
+      "name": "[Universal] Variables",
+      "scope": [
+        "source variable",
+        "source variable.other",
+        "source variable.parameter"
+      ],
+      "settings": {
+        "foreground": "#a6c1e4"
+      }
+    },
+
+    // ============================================
+    // 🎨 全局兜底规则 (Global Override)
+    // ============================================
     {
       "name": "Global Light Text Override",
       "scope": [
-        "source",   // 所有代码 (ts, js, py...)
-        "text",     // 普通文本
-        "variable", 
+        "source", // 所有代码
+        "text", // 普通文本
+        "variable",
         "constant",
         "keyword"
       ],
       "settings": {
-        "foreground": "#a6c1e4" // 这里填原本的浅蓝色
-      }
-    }, 
-    // 再次确认 Markdown (Chat内容) 使用深色
-    // 这段要放在上面那段的【后面】，或者利用 specificity 覆盖
-    {
-      "name": "Markdown Dark for Chat",
-      "scope": [
-        "text.html.markdown",
-        "markup",
-        "meta.paragraph.markdown"
-      ],
-      "settings": {
-        "foreground": "#66849C" // 深色，适配 Chat 背景
+        "foreground": "#a6c1e4"
       }
     },
-    // 专门针对基础标点强制设为浅色
+    // 基础标点符号 -> 灰色
     {
       "name": "Normal Punctuation",
       "scope": [
-        // 基础标点
-        "punctuation.separator", // = : , ;
-        "punctuation.terminator", // ;
-        
-        // HTML/Vue 标签括号 < >
-        "punctuation.definition.tag", 
-        
-        // 字符串引号 " '
+        "punctuation.separator",
+        "punctuation.terminator",
         "punctuation.definition.string",
-        
-        // 对象键值对的冒号 (key: value)
         "punctuation.separator.key-value"
       ],
       "settings": {
         "foreground": "#707a84"
       }
     },
-    // Vue/HTML 关键指令符号 (@ : #) -> 改成【显眼】的颜色
+
+    // ============================================
+    // 🌐 HTML 专属配置 (修复 HTML 变单色问题)
+    // ============================================
     {
-      "name": "Vue/Angular Directives",
-      "scope": [
-        "punctuation.attribute-shorthand.event",  // @click 里的 @
-        "punctuation.attribute-shorthand.bind",   // :src 里的 :
-        "punctuation.attribute-shorthand.slot",   // #header 里的 #
-        "entity.other.attribute-name.angular",    // Angular 的 *ngIf 里的 *
-        "punctuation.definition.keyword",         // 有些语法把 @ 算作 keyword
-        "variable.language.this"                  // this. 也可以醒目一点
-      ],
-      "settings": {
-        "foreground": "#ffffff",
-      }
-    },
-    {
-      "name": "New keyword, logical operator keyword",
-      "scope": ["keyword.operator.new", "keyword.operator.logical"],
-      "settings": {
-        "foreground": "#ba8ef7"
-      }
-    },
-    {
-      "name": "Comment",
-      "scope": ["comment"],
-      "settings": {
-        "foreground": "#707a84"
-      }
-    },
-    {
-      "name": "Comment Shebang",
-      "scope": ["comment.line.shebang"],
-      "settings": {
-        "foreground": "#ff8ad1"
-      }
-    },
-    {
-      "name": "Variables",
-      "scope": ["variable", "string constant.other.placeholder"],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "Invalid",
-      "scope": ["invalid", "invalid.illegal"],
-      "settings": {
-        "foreground": "#ff6a80"
-      }
-    },
-    {
-      "name": "Keyword, Storage",
-      "scope": ["keyword", "storage.type", "storage.modifier"],
-      "settings": {
-        "foreground": "#ba8ef7"
-      }
-    },
-    {
-      "name": "Operators",
-      "scope": ["keyword.operator"],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "Operator, Misc",
-      "scope": ["keyword.control"],
-      "settings": {
-        "foreground": "#939da5" // import，from的
-      }
-    },
-    {
-      "name": "Constant",
-      "scope": ["constant.language", "variable.other.property"],
-      "settings": {
-        "foreground": "#ffa763"
-      }
-    },
-    {
-      "name": "Punctuation template expression",
-      "scope": [
-        "punctuation.definition.template-expression",
-        "punctuation.definition.typeparameters",
-        "meta.template.expression"
-      ],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "Tag, Misc",
-      "scope": [
-        "punctuation.definition.tag",
-        "punctuation.separator.inheritance.php",
-        "punctuation.definition.tag.html",
-        "punctuation.definition.tag.begin.html",
-        "punctuation.definition.tag.end.html"
-      ],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "Builtin function",
-      "scope": ["support.function.builtin"],
-      "settings": {
-        "foreground": "#89ddff"
-      }
-    },
-    {
-      "name": "Tag",
+      "name": "HTML: Tags",
       "scope": [
         "entity.name.tag",
         "meta.tag.sgml",
         "markup.deleted.git_gutter"
       ],
       "settings": {
-        "foreground": "#ff6a80"
+        "foreground": "#ff6a80" // 粉色 (<div>)
       }
     },
     {
-      "name": "Component Tag",
-      "scope": ["support.class.component"],
+      "name": "HTML: Attributes",
+      "scope": [
+        "entity.other.attribute-name",
+        "entity.other.attribute-name.html"
+      ],
+      "settings": {
+        "foreground": "#ffa763" // 橙色 (class=)
+      }
+    },
+    {
+      "name": "HTML: Attribute Values",
+      "scope": ["string.quoted.double.html", "string.quoted.single.html"],
+      "settings": {
+        "foreground": "#5bec95" // 绿色 ("container")
+      }
+    },
+    {
+      "name": "HTML: Brackets (< >)",
+      "scope": [
+        "punctuation.definition.tag",
+        "punctuation.definition.tag.html",
+        "punctuation.definition.tag.begin.html",
+        "punctuation.definition.tag.end.html"
+      ],
+      "settings": {
+        "foreground": "#707a84" // 灰色 (< >)
+      }
+    },
+    {
+      "name": "HTML: Doctypes / Meta",
+      "scope": ["meta.tag.metadata.doctypedecl", "meta.tag.metadata.doctype"],
       "settings": {
         "foreground": "#ba8ef7"
       }
     },
+
+    // ============================================
+    // 📝 Markdown (MD) 专属优化层
+    // ============================================
     {
-      "name": "Function, Special Method",
+      "name": "Markdown: Headings",
       "scope": [
-        "entity.name.function",
-        "meta.function-call",
-        "variable.function",
-        "support.function",
-        "keyword.other.special-method"
-      ],
-      "settings": {
-        "foreground": "#ffea6b"
-      }
-    },
-    {
-      "name": "Function, Special Method",
-      "scope": ["punctuation.definition.arguments", "meta.function-call"],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "punctuation.accessor.js",
-      "scope": ["punctuation.accessor.js", "punctuation.parenthesis"],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "Block Level Variables",
-      "scope": ["variable.other"],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "Number",
-      "scope": ["constant.numeric"],
-      "settings": {
-        "foreground": "#89ddff"
-      }
-    },
-    {
-      "name": "Constant, Function Argument, Tag Attribute, Embedded",
-      "scope": [
-        "support.constant",
-        "constant.character",
-        "constant.escape",
-        "keyword.other.unit",
-        "keyword.other",
-        "variable.parameter"
-      ],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "Variable parameter",
-      "scope": ["support.variable.property"],
-      "settings": {
-        "foreground": "#ffa763"
-      }
-    },
-    {
-      "name": "String, Symbols, Inherited Class, Markup Heading",
-      "scope": [
-        "string",
+        "markdown.heading",
         "markup.heading",
-        "markup.inserted.git_gutter",
-        "string.unquoted.label.js"
+        "markup.heading entity.name",
+        "markup.heading.markdown punctuation.definition.heading.markdown"
       ],
       "settings": {
-        "foreground": "#5bec95"
+        "foreground": "#5bec95",
+        "fontStyle": "bold"
       }
     },
     {
-      "name": "Entity name",
-      "scope": ["meta.return.type"],
+      "name": "Markdown: Bold",
+      "scope": ["markup.bold", "markup.bold string"],
       "settings": {
-        "foreground": "#ffea6b"
+        "foreground": "#ba8ef7",
+        "fontStyle": "bold"
       }
     },
     {
-      "name": "Entity Types",
-      "scope": ["support.type"],
+      "name": "Markdown: Italic",
+      "scope": ["markup.italic"],
       "settings": {
-        "foreground": "#939da5"
+        "foreground": "#ba8ef7",
+        "fontStyle": "italic"
       }
     },
     {
-      "name": "CSS unit",
+      "name": "Markdown: Code",
       "scope": [
-        "keyword.other.unit.px.css",
-        "support.constant.color.w3c-standard-color-name.css",
-        "keyword.other.unit.s.css",
-        "support.constant.property-value.css",
-        "meta.property-value.css"
-      ],
-      "settings": {
-        "foreground": "#ffa763"
-      }
-    },
-    {
-      "name": "CSS Class and Support",
-      "scope": [
-        "source.css support.type.property-name",
-        "source.sass support.type.property-name",
-        "source.scss support.type.property-name",
-        "source.less support.type.property-name",
-        "source.stylus support.type.property-name",
-        "source.postcss support.type.property-name"
-      ],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "Sub-methods",
-      "scope": [
-        "entity.name.module.js",
-        "variable.import.parameter.js",
-        "variable.other.class.js"
-      ],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "Language methods",
-      "scope": ["variable.language"],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "entity.name.method.js",
-      "scope": ["entity.name.method.js"],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "meta.method.js",
-      "scope": [
-        "meta.class-method.js entity.name.function.js",
-        "variable.function.constructor"
+        "markup.raw",
+        "markup.inline.raw",
+        "markup.raw.block.markdown",
+        "markup.raw.block.fenced.markdown"
       ],
       "settings": {
         "foreground": "#ffea6b"
       }
     },
     {
-      "name": "function arrow",
-      "scope": ["storage.type.function.arrow"],
+      "name": "Markdown: Link Text",
+      "scope": ["string.other.link.title.markdown"],
       "settings": {
-        "foreground": "#939da5"
+        "foreground": "#5fb5f3"
       }
     },
     {
-      "name": "Type",
+      "name": "Markdown: Link URL",
       "scope": [
-        "support.type",
-        "support.type.primitive",
-        "support.type.sys-types"
+        "markup.underline.link",
+        "constant.other.reference.link.markdown"
       ],
       "settings": {
-        "foreground": "#89ddff"
-      }
-    },
-    {
-      "name": "Attributes",
-      "scope": ["entity.other.attribute-name"],
-      "settings": {
-        "foreground": "#ffa763"
-      }
-    },
-    {
-      "name": "HTML Attributes",
-      "scope": [
-        "entity.other.attribute-name.html",
-        "entity.other.attribute-name"
-      ],
-      "settings": {
-        "foreground": "#ffa763"
-      }
-    },
-    {
-      "name": "CSS Classes",
-      "scope": ["entity.other.attribute-name.class"],
-      "settings": {
-        "foreground": "#ffa763"
-      }
-    },
-    {
-      "name": "CSS ID's",
-      "scope": ["entity.other.attribute-name.id.css"],
-      "settings": {
-        "foreground": "#ff8ad1"
-      }
-    },
-    {
-      "name": "Inserted",
-      "scope": ["markup.inserted"],
-      "settings": {
-        "foreground": "#C3E88D"
-      }
-    },
-    {
-      "name": "Deleted",
-      "scope": ["markup.deleted"],
-      "settings": {
-        "foreground": "#ff6a80"
-      }
-    },
-    {
-      "name": "Changed",
-      "scope": ["markup.changed"],
-      "settings": {
-        "foreground": "#C792EA"
-      }
-    },
-    {
-      "name": "Regular Expressions",
-      "scope": ["string.regexp"],
-      "settings": {
-        "foreground": "#56adb7"
-      }
-    },
-    {
-      "name": "Escape Characters",
-      "scope": ["constant.character.escape"],
-      "settings": {
-        "foreground": "#89ddff"
-      }
-    },
-    {
-      "name": "URL",
-      "scope": ["*url*", "*link*", "*uri*"],
-      "settings": {
+        "foreground": "#89ddff",
         "fontStyle": "underline"
       }
     },
     {
-      "name": "Decorators",
-      "scope": [
-        "tag.decorator.js",
-        "tag.decorator.js punctuation.definition.tag.js"
-      ],
+      "name": "Markdown: Blockquote",
+      "scope": ["markup.quote"],
       "settings": {
-        "foreground": "#89ddff"
+        "foreground": "#939da5",
+        "fontStyle": "italic"
       }
     },
     {
-      "name": "ES7 Bind Operator",
-      "scope": [
-        "source.js constant.other.object.key.js string.unquoted.label.js"
-      ],
+      "name": "Markdown: List Punctuation",
+      "scope": ["punctuation.definition.list_item.markdown"],
       "settings": {
-        "foreground": "#b15e7c"
+        "foreground": "#ffd700"
       }
     },
     {
-      "name": "JSON Key",
+      "name": "Markdown: Separator",
+      "scope": ["meta.separator"],
+      "settings": {
+        "foreground": "#707a84",
+        "fontStyle": "bold"
+      }
+    },
+
+    // ============================================
+    // ⚛️ Vue / Angular / General Fixes
+    // ============================================
+    {
+      "name": "Vue/Angular Directives",
       "scope": [
-        "source.json meta.structure.dictionary.json support.type.property-name.json"
+        "punctuation.attribute-shorthand.event",
+        "punctuation.attribute-shorthand.bind",
+        "punctuation.attribute-shorthand.slot",
+        "entity.other.attribute-name.angular",
+        "punctuation.definition.keyword",
+        "variable.language.this"
+      ],
+      "settings": {
+        "foreground": "#ffffff"
+      }
+    },
+
+    // ============================================
+    // 🔷 TS 专属配置 (2025.12.15 更新版)
+    // ============================================
+    {
+      "name": "TS Only: Control Keywords",
+      "scope": [
+        "source.ts keyword.control",
+        "source.ts keyword.control.import",
+        "source.ts keyword.control.export",
+        "source.ts keyword.control.flow"
       ],
       "settings": {
         "foreground": "#ba8ef7"
       }
     },
     {
-      "name": "Markdown - Plain",
-      "scope": [
-        "text.html.markdown",
-        "punctuation.definition.list_item.markdown"
-      ],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "Markdown - Heading",
-      "scope": [
-        "markdown.heading",
-        "markup.heading | markup.heading entity.name",
-        "markup.heading.markdown punctuation.definition.heading.markdown"
-      ],
-      "settings": {
-        "foreground": "#5bec95"
-      }
-    },
-    {
-      "name": "Markup - Bold",
-      "scope": ["markup.bold", "markup.bold string"],
-      "settings": {
-        "fontStyle": "bold",
-        "foreground": "#ba8ef7"
-      }
-    },
-    {
-      "name": "Markup - Bold-Italic",
-      "scope": [
-        "markup.bold markup.italic",
-        "markup.italic markup.bold",
-        "markup.quote markup.bold",
-        "markup.bold markup.italic string",
-        "markup.italic markup.bold string",
-        "markup.quote markup.bold string"
-      ],
-      "settings": {
-        "fontStyle": "bold",
-        "foreground": "#ba8ef7"
-      }
-    },
-    {
-      "name": "Markup - Underline",
-      "scope": ["markup.underline"],
-      "settings": {
-        "fontStyle": "underline",
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "Markdown - Blockquote",
-      "scope": ["markup.quote punctuation.definition.blockquote.markdown"],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "Markdown - Link",
-      "scope": ["string.other.link.title.markdown"],
-      "settings": {
-        "foreground": "#89ddff"
-      }
-    },
-    {
-      "name": "Markdown - Link Description",
-      "scope": ["string.other.link.description.title.markdown"],
+      "name": "TS Only: Storage Keywords",
+      "scope": ["source.ts storage.type", "source.ts storage.modifier"],
       "settings": {
         "foreground": "#ba8ef7"
       }
     },
     {
-      "name": "Markdown - Link Anchor",
-      "scope": ["constant.other.reference.link.markdown"],
+      "name": "TS Only: Types & Classes",
+      "scope": [
+        "source.ts entity.name.type",
+        "source.ts support.class",
+        "source.ts support.type",
+        "source.ts entity.name.class",
+        "source.ts meta.return.type",
+        "source.ts meta.type.annotation"
+      ],
+      "settings": {
+        "foreground": "#5fb5f3"
+      }
+    },
+    {
+      "name": "TS Only: Function Parameters",
+      "scope": ["source.ts variable.parameter"],
+      "settings": {
+        "foreground": "#ffa763"
+      }
+    },
+    {
+      "name": "TS Only: Angular Decorator Array Items",
+      "scope": [
+        "source.ts meta.decorator meta.array.literal variable.other.readwrite",
+        "source.ts meta.decorator meta.array.literal variable.other.object"
+      ],
+      "settings": {
+        "foreground": "#ffd700"
+      }
+    },
+    {
+      "name": "TS Only: Properties",
+      "scope": [
+        "source.ts variable.other.property",
+        "source.ts variable.object.property",
+        "source.ts meta.field.declaration variable.other.readwrite"
+      ],
       "settings": {
         "foreground": "#ffea6b"
       }
     },
     {
-      "name": "Markup - Raw Block",
-      "scope": ["markup.raw.block"],
-      "settings": {
-        "foreground": "#ba8ef7"
-      }
-    },
-    {
-      "name": "Markdown - Raw Block Fenced",
-      "scope": ["markup.raw.block.fenced.markdown"],
-      "settings": {
-        "foreground": "#00000050"
-      }
-    },
-    {
-      "name": "Markdown - Fenced Bode Block",
-      "scope": ["punctuation.definition.fenced.markdown"],
-      "settings": {
-        "foreground": "#00000050"
-      }
-    },
-    {
-      "name": "Markdown - Fenced Bode Block Variable",
+      "name": "TS Only: Object Keys",
       "scope": [
-        "markup.raw.block.fenced.markdown",
-        "variable.language.fenced.markdown",
-        "punctuation.section.class.end"
+        "source.ts meta.object-literal.key",
+        "source.ts variable.other.property.ts"
       ],
       "settings": {
         "foreground": "#939da5"
       }
     },
     {
-      "name": "Markdown - Fenced Language",
-      "scope": ["variable.language.fenced.markdown"],
+      "name": "TS Only: 'this' keyword",
+      "scope": ["source.ts variable.language.this"],
       "settings": {
         "foreground": "#939da5"
       }
     },
     {
-      "name": "Markdown - Separator",
-      "scope": ["meta.separator"],
-      "settings": {
-        "fontStyle": "bold",
-        "foreground": "#8796b0"
-      }
-    },
-    {
-      "name": "Markup - Table",
-      "scope": ["markup.table"],
-      "settings": {
-        "foreground": "#939da5"
-      }
-    },
-    {
-      "name": "Entity Type Class",
-      "scope": ["entity.name.type.class"],
-      "settings": {
-        "foreground": "#ff6a80"
-      }
-    },
-    {
-      "name": "Module",
-      "scope": ["support.type.object.module"],
+      "name": "TS Only: Method Calls",
+      "scope": [
+        "source.ts meta.function-call entity.name.function",
+        "source.ts meta.method-call entity.name.function"
+      ],
       "settings": {
         "foreground": "#ba8ef7"
       }
     },
+    // [精准修复] TS 中的内联 Style 属性
     {
-      "name": "Boolean",
-      "scope": ["constant.language.boolean"],
+      "name": "TS Only: Inline Style CSS Attribute",
+      "scope": [
+        "source.ts meta.attribute.style.html source.css",
+        "source.ts meta.attribute.style.html source.css support.type.property-name.css",
+        "source.ts meta.attribute.style.html source.css meta.property-value.css",
+        "source.ts meta.attribute.style.html source.css constant.numeric.css",
+        "source.ts meta.attribute.style.html source.css keyword.other.unit.css",
+        "source.ts meta.attribute.style.html source.css punctuation.separator.key-value.css",
+        "source.ts meta.attribute.style.html source.css punctuation.terminator.rule.css"
+      ],
       "settings": {
-        "foreground": "#ba8ef7"
+        "foreground": "#5bec95"
       }
     },
+    // 11. [补丁] 修复内联 Style 属性的引号颜色 (变回灰色)
+    // 必须放在 "Inline Style CSS Attribute" 规则之后
     {
-      "name": "Types",
-      "scope": ["entity.name.type"],
+      "name": "TS Only: Inline Style Quotes Fix",
+      "scope": [
+        "source.ts meta.attribute.style.html punctuation.definition.string.begin.html",
+        "source.ts meta.attribute.style.html punctuation.definition.string.end.html",
+        "source.ts meta.attribute.style.html punctuation.definition.string"
+      ],
       "settings": {
-        "foreground": "#89ddff"
+        "foreground": "#707a84" // 符号灰
       }
-    },
-    {
-      "name": "Chat Text Fix",
-      "scope": [ "text.html.markdown", "source.markdown", "text" ],
-      "settings": { "foreground": "#334455" }
     }
   ]
 }
